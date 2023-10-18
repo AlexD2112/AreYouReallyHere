@@ -1,0 +1,336 @@
+<!-- HTML document that creates a user interface for a T.A.U.I. It includes styling for input boxes, buttons,
+and headings, as well as a script that utilizes the Google Maps API for autocomplete functionality and
+geolocation. Also includes a form for users to input their start and end addresses, and if those
+addresses are provided, it displays directions, links to call an Uber, and a static map of the route. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TAUI</title>
+    <style>
+        *{
+           font-family: "Lucida Console", "Arial", sans-serif;
+       }
+       html, label, .click-button, .carousel-button, .input-box, .half-click-button{
+           background-color: #1F2833;
+           color: #AADAFF;
+       }
+       .click-button, .carousel-button, .input-box, .half-click-button{
+           border: 0.75vh solid #AADAFF;
+           border-radius: 0.75vh;
+       }
+       .carousel-iframe {
+           width: 82vw;
+           z-index: 100;
+           position: relative;
+       }
+       .carousel-container {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           height: 41vh;
+           position: relative;
+       }
+       .button-container {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           position: relative;
+       }
+       .carousel-navigation {
+           position:absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           width: 100%;
+       }
+       #double-deeplink-button {
+           bottom: 0;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           width: 100%;
+       }
+       .carousel-button {
+           font-size: 2.5vh;
+           border-radius: 0.75vh;
+           padding: 0 0;
+           box-sizing: border-box;
+           height: 41vh;
+           width: 8vw;
+       }
+       .half-click-button {
+           font-size: 3.5vw;
+           border-radius: 0.75vh;
+           padding: 0 0;
+           box-sizing: border-box;
+           width: 50%;
+       }
+       .input-box, .click-button {
+           width: 100%;
+           box-sizing: border-box;
+       }
+       input[type="text"], .click-button, .half-click-button{
+           padding: 0.125vh;
+       }
+       input, .click-button, .input-box, .half-click-button{
+           font-size: 3.75vh;
+           margin-bottom: 0.5vh;
+           margin-top: 0;
+       }
+       h1, label {
+           font-size: 2.5vh;
+           margin-bottom: 0.5vh;
+           margin-top: 0;
+       }
+       #title {
+           font-size: 12vh;
+           margin-top: 0;
+           margin-bottom: 2.5vh;
+       }
+       iframe {
+           width: 100%;
+           height: 41vh;
+           box-sizing: border-box;
+       }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places"></script>
+    <script>
+        function initAutocomplete() {
+            var startInput = document.getElementById('start-input');
+            var endInput = document.getElementById('end-input');
+
+            var startAutocomplete = new google.maps.places.Autocomplete(startInput);
+            var endAutocomplete = new google.maps.places.Autocomplete(endInput);
+            }
+        google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+        function getUserLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    // Create a JSON object with the input data
+                    var locationData = {
+                        latitude: latitude,
+                        longitude: longitude
+                    };
+
+                    // Convert locationData to a query string
+                    var queryString = Object.keys(locationData).map(function (key) {
+                        return key + '=' + encodeURIComponent(locationData[key]);
+                    }).join('&');
+
+                    // Send the JavaScript variable to the Flask server using a GET request
+                    fetch('/receive_location_data?' + queryString)
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById("start-input").value = data; // Update the HTML content with the received data
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }, function (error) {
+                    if (error.code === error.PERMISSION_DENIED) {
+                        alert("Location access denied. To enable, go to your browser settings.");
+                    } else if (error.code === error.POSITION_UNAVAILABLE) {
+                        alert("Location information is unavailable.");
+                    } else if (error.code === error.TIMEOUT) {
+                        alert("The request to get user location timed out.");
+                    } else {
+                        alert("An unknown error occurred.");
+                    }
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1 id = title>TAUI</h1>
+    <button class = click-button onclick="getUserLocation()">Get Current Location</button>
+    <form method="POST">
+        <label for="start-input">Start Address:</label>
+        <br>
+        <input id="start-input" type="text" name="start" class="input-box" value="{{ start }}">
+        <br>
+        <label for="end-input">End Address:</label>
+        <br>
+        <input id="end-input" type="text" name="end" class="input-box" value="{{ end }}">
+        <br>
+        <input class ="click-button" type="submit" value="Get Directions">
+    </form>
+    {% if start and end %}
+       <h1 id = "route-label"></h1>
+       <div class="carousel-container">
+           <div id="iframe-carousel">
+               <iframe
+                   class="carousel-iframe"
+                   style="border:0"
+                   loading="lazy"
+                   allowfullscreen
+                   src="https://www.google.com/maps/embed/v1/directions?key={{ api_key }}
+                   &origin={{ start }}
+                   &destination={{ stop1_lat }},{{ stop1_long }}
+                   &mode=driving">
+               </iframe>
+               <iframe
+                   class="carousel-iframe"
+                   style="border:0"
+                   loading="lazy"
+                   allowfullscreen
+                   src="https://www.google.com/maps/embed/v1/directions?key={{ api_key }}
+                   &origin={{ stop1_lat }},{{ stop1_long }}
+                   &destination={{ stop2_lat }},{{ stop2_long }}
+                   &mode=transit">
+               </iframe>
+               <iframe
+                   class="carousel-iframe"
+                   style="border:0"
+                   loading="lazy"
+                   allowfullscreen
+                   src="https://www.google.com/maps/embed/v1/directions?key={{ api_key }}
+                   &origin={{ stop2_lat }},{{ stop2_long }}
+                   &destination={{ end }}
+                   &mode=driving">
+               </iframe>
+           </div>
+           <div class="carousel-navigation">
+               <button class="carousel-button" id="prev-button">&lt</button>
+               <button class="carousel-button" id="next-button">&gt</button>
+           </div>
+       </div>
+        <div class="button-container">
+            <div id="double-deeplink-button">
+               <button class="half-click-button" id="double-uber-button">Call an Uber</button>
+               <button class="half-click-button" id="double-google-button">Open in Google</button>
+            </div>
+            <button class="click-button" id="deeplink-button" onclick =
+                    "window.open(uberUrls[currentIframeIndex], '_blank')"
+            >Open in Google</button>
+       </div>
+    {% endif %}
+    <script>
+       const iframes = document.querySelectorAll('.carousel-iframe');
+       let currentFrame = 0;
+
+       function showFrame(frameIndex) {
+           iframes.forEach((iframe, index) => {
+               iframe.style.display = index === frameIndex ? 'block' : 'none';
+           });
+       }
+
+
+       function nextFrame() {
+           currentFrame = (currentFrame + 1) % iframes.length;
+           showFrame(currentFrame);
+       }
+
+
+       function prevFrame() {
+           currentFrame = (currentFrame - 1 + iframes.length) % iframes.length;
+           showFrame(currentFrame);
+       }
+
+
+       // Initially show the first iframe
+       showFrame(currentFrame);
+
+
+       const uberUrls = [
+           "https://www.google.com/maps/dir/?api=1" +
+           "&origin={{stop1_lat}},{{ stop1_long }}" +
+           "&destination={{ stop2_lat }},{{ stop2_long }}" +
+           "&travelmode=transit",
+           "https://m.uber.com/ul/?client_id=<CLIENT_ID>&action=setPickup&pickup[latitude]={{ start_lat }}&pickup[longitude]={{ start_long }}&pickup[formatted_address]={{ start }}&dropoff[latitude]={{ stop1_lat }}&dropoff[longitude]={{ stop1_long }}&dropoff[formatted_address]={{ stop1_address }}",
+           "https://m.uber.com/ul/?client_id=<CLIENT_ID>&action=setPickup&pickup[latitude]={{ stop2_lat }}&pickup[longitude]={{ stop2_long }}&pickup[formatted_address]={{ stop2_address }}&dropoff[latitude]={{ end_lat }}&dropoff[longitude]={{ end_long }}&dropoff[formatted_address]={{ end }}",
+           "https://www.google.com/maps/dir/?api=1" +
+           "&origin={{start_lat}},{{ start_long }}" +
+           "&destination={{stop1_lat}},{{ stop1_long }}" +
+           "&travelmode=transit",
+           "https://www.google.com/maps/dir/?api=1" +
+           "&origin={{stop2_lat}},{{ stop2_long }}" +
+           "&destination={{ end_lat }},{{ end_long }}" +
+           "&travelmode=transit",
+       ];
+
+       function initializeUberDeeplink() {
+           const uberButton = document.getElementById(`deeplink-button`);
+           uberButton.onclick = function() {
+               window.open(uberUrls[0], '_blank')
+           }
+       }
+
+       function updateButtonLinks() {
+           const currentIframeIndex = currentFrame;
+           const routeLabel = document.getElementById('route-label')
+           const halfUberButton = document.getElementById('double-uber-button')
+           const halfGoogleButton = document.getElementById('double-google-button')
+
+           if (currentIframeIndex === 0) {
+               halfUberButton.onclick = function() {
+                   window.open(uberUrls[1], '_blank')
+               };
+               halfGoogleButton.onclick = function() {
+                   window.open(uberUrls[3], '_blank')
+               }
+               routeLabel.innerHTML = "Uber Ride 1"
+           } else if (currentIframeIndex === 1) {
+               routeLabel.innerHTML = "Public Transit"
+           } else {
+               halfUberButton.onclick = function() {
+                   window.open(uberUrls[2], '_blank')
+               };
+               halfGoogleButton.onclick = function() {
+                   window.open(uberUrls[4], '_blank')
+               }
+               routeLabel.innerHTML = "Uber Ride 2"
+           }
+       }
+
+       updateButtonLinks();
+       initializeUberDeeplink();
+
+       function updateButtonVisibility() {
+            const buttonContainer = document.querySelector('.button-container');
+            const doubleUberButton = document.getElementById('double-uber-button');
+            const doubleGoogleButton = document.getElementById('double-google-button');
+            const singleUberButton = document.getElementById('deeplink-button');
+
+            if (buttonContainer && doubleUberButton && doubleGoogleButton && singleUberButton) {
+                if (currentFrame === 1) {
+                    buttonContainer.style.display = 'block'; // Show the button container on frame 1
+                    doubleUberButton.style.display = 'none'; // Hide the double "Call an Uber" button on frame 1
+                    doubleGoogleButton.style.display = 'none'; // Hide the double "Open in Google" button on frame 1
+                    singleUberButton.style.display = 'block'; // Show the single "Call an Uber" button on frame 1
+                } else {
+                    singleUberButton.style.display = 'none'; // Hide the single "Call an Uber" button on frames 0 and 2
+                    doubleUberButton.style.display = 'block' //Show the double "Call an Uber" button on frames 0 and 2
+                    doubleGoogleButton.style.display = 'block' //Show the double "Open in Google" button on frames 0 and 2
+                }
+            }
+       }
+
+       // Call updateButtonVisibility initially
+       updateButtonVisibility();
+
+       document.getElementById('next-button').addEventListener('click', function() {
+           nextFrame();
+           updateButtonLinks();
+           updateButtonVisibility()
+       });
+
+
+       document.getElementById('prev-button').addEventListener('click', function() {
+           prevFrame();
+           updateButtonLinks();
+           updateButtonVisibility()
+       });
+   </script>
+</body>
+</html>
