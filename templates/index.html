@@ -5,84 +5,33 @@ addresses are provided, it displays directions, links to call an Uber, and a sta
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TAUI</title>
+    <title>Are you here?</title>
     <style>
         *{
            font-family: "Lucida Console", "Arial", sans-serif;
        }
-       html, label, .click-button, .carousel-button, .input-box, .half-click-button{
-           background-color: #1F2833;
-           color: #AADAFF;
+       html, label, .click-button, .input-box{
+           background-color: #43136c;
+           color: #b478e7;
        }
-       .click-button, .carousel-button, .input-box, .half-click-button{
-           border: 0.75vh solid #AADAFF;
+       .click-button, .input-box{
+           border: 0.75vh solid #b478e7;
            border-radius: 0.75vh;
-       }
-       .carousel-iframe {
-           width: 82vw;
-           z-index: 100;
-           position: relative;
-       }
-       .carousel-container {
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           justify-content: center;
-           height: 41vh;
-           position: relative;
-       }
-       .button-container {
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           justify-content: center;
-           position: relative;
-       }
-       .carousel-navigation {
-           position:absolute;
-           top: 50%;
-           transform: translateY(-50%);
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           width: 100%;
-       }
-       #double-deeplink-button {
-           bottom: 0;
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           width: 100%;
-       }
-       .carousel-button {
-           font-size: 2.5vh;
-           border-radius: 0.75vh;
-           padding: 0 0;
-           box-sizing: border-box;
-           height: 41vh;
-           width: 8vw;
-       }
-       .half-click-button {
-           font-size: 3.5vw;
-           border-radius: 0.75vh;
-           padding: 0 0;
-           box-sizing: border-box;
-           width: 50%;
        }
        .input-box, .click-button {
            width: 100%;
            box-sizing: border-box;
        }
-       input[type="text"], .click-button, .half-click-button{
-           padding: 0.125vh;
+       input[type="text"], .click-button{
+           padding: 0.25vh;
        }
-       input, .click-button, .input-box, .half-click-button{
-           font-size: 3.75vh;
+       input, .click-button, .input-box{
+           font-size: 5vh;
            margin-bottom: 0.5vh;
            margin-top: 0;
        }
        h1, label {
-           font-size: 2.5vh;
+           font-size: 3.75vh;
            margin-bottom: 0.5vh;
            margin-top: 0;
        }
@@ -119,17 +68,28 @@ addresses are provided, it displays directions, links to call an Uber, and a sta
                         latitude: latitude,
                         longitude: longitude
                     };
+                    console.log(latitude, longitude)
 
                     // Convert locationData to a query string
-                    var queryString = Object.keys(locationData).map(function (key) {
-                        return key + '=' + encodeURIComponent(locationData[key]);
-                    }).join('&');
+                    console.log(Math.abs(latitude-41.982) < 0.001);
+                    console.log(Math.abs(longitude+87.708) < 0.001);
+                    if ((Math.abs(latitude-41.982) < 0.001) && (Math.abs(longitude+87.708) < 0.001)) {
+                        document.getElementById("check-button").innerHTML = "You're here! Fill out the form below";
+                        document.getElementById("check-button").style.color = "#3fef39";
+                        document.getElementById("check-button").style.borderColor = "#3fef39";
+                        document.getElementById("check-button").style.backgroundColor = "#084705";
+                    } else {
+                        document.getElementById("check-button").innerHTML = "You aren't here! Email atdanakis@cps.edu if this is in error";
+                        document.getElementById("check-button").style.color = "#ff0000";
+                        document.getElementById("check-button").style.borderColor = "#ff0000";
+                        document.getElementById("check-button").style.backgroundColor = "#660000";
+                    }
 
                     // Send the JavaScript variable to the Flask server using a GET request
                     fetch('/receive_location_data?' + queryString)
                         .then(response => response.text())
                         .then(data => {
-                            document.getElementById("start-input").value = data; // Update the HTML content with the received data
+                             // Update the HTML content with the received data
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -152,8 +112,8 @@ addresses are provided, it displays directions, links to call an Uber, and a sta
     </script>
 </head>
 <body>
-    <h1 id = title>TAUI</h1>
-    <button class = click-button onclick="getUserLocation()">Get Current Location</button>
+    <h1 id = title>Are you here?</h1>
+    <button id = "check-button" class = click-button onclick="getUserLocation()">Check Location</button>
     <form method="POST">
         <label for="start-input">Start Address:</label>
         <br>
@@ -215,122 +175,5 @@ addresses are provided, it displays directions, links to call an Uber, and a sta
             >Open in Google</button>
        </div>
     {% endif %}
-    <script>
-       const iframes = document.querySelectorAll('.carousel-iframe');
-       let currentFrame = 0;
-
-       function showFrame(frameIndex) {
-           iframes.forEach((iframe, index) => {
-               iframe.style.display = index === frameIndex ? 'block' : 'none';
-           });
-       }
-
-
-       function nextFrame() {
-           currentFrame = (currentFrame + 1) % iframes.length;
-           showFrame(currentFrame);
-       }
-
-
-       function prevFrame() {
-           currentFrame = (currentFrame - 1 + iframes.length) % iframes.length;
-           showFrame(currentFrame);
-       }
-
-
-       // Initially show the first iframe
-       showFrame(currentFrame);
-
-
-       const uberUrls = [
-           "https://www.google.com/maps/dir/?api=1" +
-           "&origin={{stop1_lat}},{{ stop1_long }}" +
-           "&destination={{ stop2_lat }},{{ stop2_long }}" +
-           "&travelmode=transit",
-           "https://m.uber.com/ul/?client_id=<CLIENT_ID>&action=setPickup&pickup[latitude]={{ start_lat }}&pickup[longitude]={{ start_long }}&pickup[formatted_address]={{ start }}&dropoff[latitude]={{ stop1_lat }}&dropoff[longitude]={{ stop1_long }}&dropoff[formatted_address]={{ stop1_address }}",
-           "https://m.uber.com/ul/?client_id=<CLIENT_ID>&action=setPickup&pickup[latitude]={{ stop2_lat }}&pickup[longitude]={{ stop2_long }}&pickup[formatted_address]={{ stop2_address }}&dropoff[latitude]={{ end_lat }}&dropoff[longitude]={{ end_long }}&dropoff[formatted_address]={{ end }}",
-           "https://www.google.com/maps/dir/?api=1" +
-           "&origin={{start_lat}},{{ start_long }}" +
-           "&destination={{stop1_lat}},{{ stop1_long }}" +
-           "&travelmode=transit",
-           "https://www.google.com/maps/dir/?api=1" +
-           "&origin={{stop2_lat}},{{ stop2_long }}" +
-           "&destination={{ end_lat }},{{ end_long }}" +
-           "&travelmode=transit",
-       ];
-
-       function initializeUberDeeplink() {
-           const uberButton = document.getElementById(`deeplink-button`);
-           uberButton.onclick = function() {
-               window.open(uberUrls[0], '_blank')
-           }
-       }
-
-       function updateButtonLinks() {
-           const currentIframeIndex = currentFrame;
-           const routeLabel = document.getElementById('route-label')
-           const halfUberButton = document.getElementById('double-uber-button')
-           const halfGoogleButton = document.getElementById('double-google-button')
-
-           if (currentIframeIndex === 0) {
-               halfUberButton.onclick = function() {
-                   window.open(uberUrls[1], '_blank')
-               };
-               halfGoogleButton.onclick = function() {
-                   window.open(uberUrls[3], '_blank')
-               }
-               routeLabel.innerHTML = "Uber Ride 1"
-           } else if (currentIframeIndex === 1) {
-               routeLabel.innerHTML = "Public Transit"
-           } else {
-               halfUberButton.onclick = function() {
-                   window.open(uberUrls[2], '_blank')
-               };
-               halfGoogleButton.onclick = function() {
-                   window.open(uberUrls[4], '_blank')
-               }
-               routeLabel.innerHTML = "Uber Ride 2"
-           }
-       }
-
-       updateButtonLinks();
-       initializeUberDeeplink();
-
-       function updateButtonVisibility() {
-            const buttonContainer = document.querySelector('.button-container');
-            const doubleUberButton = document.getElementById('double-uber-button');
-            const doubleGoogleButton = document.getElementById('double-google-button');
-            const singleUberButton = document.getElementById('deeplink-button');
-
-            if (buttonContainer && doubleUberButton && doubleGoogleButton && singleUberButton) {
-                if (currentFrame === 1) {
-                    buttonContainer.style.display = 'block'; // Show the button container on frame 1
-                    doubleUberButton.style.display = 'none'; // Hide the double "Call an Uber" button on frame 1
-                    doubleGoogleButton.style.display = 'none'; // Hide the double "Open in Google" button on frame 1
-                    singleUberButton.style.display = 'block'; // Show the single "Call an Uber" button on frame 1
-                } else {
-                    singleUberButton.style.display = 'none'; // Hide the single "Call an Uber" button on frames 0 and 2
-                    doubleUberButton.style.display = 'block' //Show the double "Call an Uber" button on frames 0 and 2
-                    doubleGoogleButton.style.display = 'block' //Show the double "Open in Google" button on frames 0 and 2
-                }
-            }
-       }
-
-       // Call updateButtonVisibility initially
-       updateButtonVisibility();
-
-       document.getElementById('next-button').addEventListener('click', function() {
-           nextFrame();
-           updateButtonLinks();
-           updateButtonVisibility()
-       });
-
-
-       document.getElementById('prev-button').addEventListener('click', function() {
-           prevFrame();
-           updateButtonLinks();
-           updateButtonVisibility()
-       });
-   </script>
 </body>
 </html>
