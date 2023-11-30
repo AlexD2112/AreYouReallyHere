@@ -91,36 +91,40 @@ addresses are provided, it displays directions, links to call an Uber, and a sta
                 alert("Geolocation is not supported by this browser.");
             }
         }
-        function displayGoogleSignInButton() {
-            //
-        }
     </script>
-    <meta name="google-signin-client_id" content="969433615989-ih4r8pdkcg1je7hucv39d5e5ea1b9tul.apps.googleusercontent.com">
 </head>
 <body>
     <h1 id = title>Are you here?</h1>
     <button id = "check-button" class = click-button onclick="getUserLocation()">Check Location</button>
-    <div id="google-signin-button"></div>
+
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <button id="capture-button" class="click-button" onclick="captureImage()">Capture Photo</button>
+
+    <!-- Hidden canvas for capturing the image -->
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+
     <script>
-        function onSuccess(googleUser) {
-          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-        }
-        function onFailure(error) {
-          console.log(error);
-        }
-        function renderButton() {
-          gapi.signin2.render('google-signin-button', {
-            'scope': 'profile email',
-            'width': 240,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-          });
+        let video = document.getElementById('webcam');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+
+        // Request access to the webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing the camera", err);
+            });
+
+        // Capture the current image in the webcam feed
+        function captureImage() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            let image_data_url = canvas.toDataURL('image/jpeg');
+
+            // Here, you can save the image_data_url to a server, display it, etc.
+            console.log(image_data_url);  // Or do something with the image
         }
     </script>
-
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
