@@ -5,7 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8187833b-9961-4109-b3cd-0b21a88e8f3f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/AreYouReallyHere.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GetDirections.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/GetDirections.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/308c9fe6b4ae4510a7f5cab7dab2a5e072b8c91a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/6e9c20f31ebce63be922b20b938c928dea39eafe.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/afdcaa6f676dc2fc6481ff35b9ab27edf1865788.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/b3401dafbac8a8084b18faae746cfb3bb402f6a8.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cats_on_mars.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/credentials.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unused files/CTA train addresses.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unused files/CTA train stpids.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unused files/Convert Excel to dict.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unused files/GoogleMapsAPIs.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +54,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -59,15 +87,43 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Aditya\Documents\GitHub\AreYouReallyHere\app" />
+      <recent name="C:\Users\Aditya\Documents\GitHub\AreYouReallyHere\app\templates" />
+    </key>
+  </component>
   <component name="RunManager">
+    <configuration name="AreYouReallyHere" type="PythonConfigurationType" factoryName="Python">
+      <module name="AreYouReallyHere" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Aditya\Documents\GitHub\AreYouReallyHere\app\app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="T.A.U.I-Train-And-Uber-Integration" type="Python.FlaskServer">
       <module name="T.A.U.I-Train-And-Uber-Integration" />
-      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="target" value="$PROJECT_DIR$/app/app.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -98,6 +154,8 @@
       <workItem from="1697631192118" duration="253000" />
       <workItem from="1698251932791" duration="5732000" />
       <workItem from="1698852773186" duration="4709000" />
+      <workItem from="1701308351991" duration="2000" />
+      <workItem from="1701309437840" duration="1107000" />
     </task>
     <servers />
   </component>
@@ -105,14 +163,15 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$GeoLocate.coverage" NAME="GeoLocate Coverage Results" MODIFIED="1695090972651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$app.coverage" NAME="app Coverage Results" MODIFIED="1694904426432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$MapEmbed.coverage" NAME="MapEmbed Coverage Results" MODIFIED="1694961535118" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GoogleMapsAPIs_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1695250525524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/GoogleMapsAPIs_py$GetDirections.coverage" NAME="GetDirections Coverage Results" MODIFIED="1695232077070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AreYouReallyHere$T_A_U_I_Train_And_Uber_Integration.coverage" NAME="T.A.U.I-Train-And-Uber-Integration Coverage Results" MODIFIED="1698862206901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1695092558008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/AreYouReallyHere$app.coverage" NAME="app Coverage Results" MODIFIED="1698257844779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1695092558008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/AreYouReallyHere$AreYouReallyHere.coverage" NAME="AreYouReallyHere Coverage Results" MODIFIED="1701309475907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/AreYouReallyHere$T_A_U_I_Train_And_Uber_Integration.coverage" NAME="T.A.U.I-Train-And-Uber-Integration Coverage Results" MODIFIED="1698862206901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GoogleMapsAPIs_py$GetDirections.coverage" NAME="GetDirections Coverage Results" MODIFIED="1695232077070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$GoogleMapsAPIs.coverage" NAME="GoogleMapsAPIs Coverage Results" MODIFIED="1694983659895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/T_A_U_I_Train_And_Uber_Integration$GeoLocate.coverage" NAME="GeoLocate Coverage Results" MODIFIED="1695090972651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GoogleMapsAPIs_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1695250525524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
